@@ -2,60 +2,7 @@ import sys
 import ply.lex as lex
 from ply.lex import TOKEN
 
-# List of reserved words
-# reserved = {
-#     'print': 'PRINT',
-#     'int': 'INT',
-#     'float': 'FLOAT',
-#     'bool': 'BOOLEAN',
-#     'str': 'STRING',
-#     'if': 'IF',
-#     'elif': 'ELIF',
-#     'else': 'ELSE',
-#     'null': 'NULL',
-#     'true': 'TRUE',
-#     'false': 'FALSE',
-# }
-
-# # List of arithmetic operators
-# arithmetic_op = {
-#     '+': 'PLUS',
-#     '-': 'MINUS',
-#     '*': 'TIMES',
-#     '/': 'DIVIDE',
-#     '%': 'MOD',
-# }
-
-# # List of boolean operators
-# boolean_op = {
-#     '<': 'LESS',
-#     '>': 'GREATER',
-#     '>=': 'GREATER_EQ',
-#     '<=': 'LESS_EQ',
-#     '==': 'EQUAL',
-#     '!=': 'NOT_EQ',
-# }
-
-# # List of bitwise operators
-# bitwise_op = {
-#     '&': 'AND',
-#     '|': 'OR',
-#     '!': 'NOT',
-# }
-
-# # List of special characters
-# special_chars = {
-#     '=': 'ASSIGN', 
-#     '(': 'LPAREN',
-#     ')': 'RPAREN',
-#     '{': 'LBRACE',
-#     '}': 'RBRACE',
-#     ',': 'COMMA',
-#     ';': 'SEMICOLON',
-# }
-
 # List of tokens
-# edit Leica
 tokens = (
             'NUMBER',
             'NAME',
@@ -84,10 +31,7 @@ tokens = (
             'GREATER'
         )
 
-# tokens = list(tokens)+ list(reserved.values())+ list(special_chars.values())+ list(arithmetic_op.values()) + list(boolean_op.values()) + list(bitwise_op.values())
-
 # Regular expression rules for simple tokens
-#edit Leica
 t_PLUS   = r'\+'
 t_MINUS  = r'-'
 t_TIMES  = r'\*'
@@ -115,16 +59,6 @@ def t_COMMENT(t):
     r'\#.*'
     pass
 
-# RegExp rules for alphanumerics
-# def t_ID(t):
-#     r'[a-zA-Z_][a-zA-Z_0-9]*'
-#     # Check for reserved words
-#     t.type = reserved.get(t.value.lower(), 'ID')
-#     return t
- 
- # RegExp for number constants
-# r_NUMBER =  r'0 | [1-9]\d* | [0-9]+\.\d+'
-# @TOKEN(r_NUMBER)
 def t_NUMBER(t):
     r'\d+'
     t.value = int(t.value)
@@ -146,27 +80,6 @@ def t_STRING_END(t):
         t.lexer.begin('INITIAL')
         return t
 
-# @TOKEN(arithmetic_op)
-# def t_ARITHMETIC_OP(t):
-#     t.type = arithmetic_op.get(t.value, 'OPERATOR')
-#     return t
-
-
-# @TOKEN(boolean_op)
-# def t_BOOLEAN_OP(t):
-#     t.type = boolean_op.get(t.value, 'OPERATOR')
-#     return t
-
-# @TOKEN(bitwise_op)
-# def t_BITWISE_OP(t):
-#     t.type = bitwise_op.get(t.value, 'OPERATOR')
-#     return t
-
-# @TOKEN(special_chars)
-# def t_SPECIAL_CHARS(t):
-#     t.type = special_chars.get(t.value, 'SPECIAL')
-#     return t
-
 # Error handling rule
 def t_error(t):
     print("Illegal character: '%s' \n\tLine number: %d" % (t.value[0], t.lineno))
@@ -180,29 +93,6 @@ def t_newline(t):
 # Build the lexer
 lexer = lex.lex()
 
-# # data = '3+1-5'
-# # wala pa sya gtake sang float
-
-# # Give the lexer some input
-
-# while True:
-#    try:
-#         s = input('calc > ')
-
-#         while True:
-#             lexer.input(s)
-#             tok = lexer.token();
-#             print (tok)
-#             break 
-#    except EOFError:
-#        break
-#     # if not s: continue
-   
-#    # result = parser.parse(s)
-#    # print (result)
-
-# # Tokenizer
-# # while True:
 precedence = (
     ('left','PLUS','MINUS'),
     ('left','TIMES','DIVIDE')
@@ -212,6 +102,16 @@ import ply.yacc as yacc
 
 # Get the token map from the lexer.  This is required.
 # from calclex import tokens
+
+names = {}
+
+def p_statement_assign(t):
+    'statement : NAME ASSIGN expression'
+    names[t[1]] = t[3]
+
+def p_statement_expr(t):
+    'statement : expression'
+    print(t[1])
 
 def p_expression_plus(p):
     'expression : expression PLUS term'
