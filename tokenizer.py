@@ -72,6 +72,20 @@ def t_error(t):
 # Build the lexer
 lexer = lex.lex()
 
+<<<<<<< HEAD
+# ---------------------------------------------end of lexer-------------------------------------------------------------
+
+precedence = (
+    ('left','PLUS','MINUS'),
+    ('left','TIMES','DIVIDE')
+    )
+
+import ply.yacc as yacc
+
+# Get the token map from the lexer.  This is required.
+# from calclex import tokens
+names = { }
+=======
 # ---------------------------------------------------------------------- GRAMMAR / BNF
 import ply.yacc as yacc
 
@@ -80,12 +94,19 @@ precedence = (
     ('left','PLUS','MINUS'),
     ('left','TIMES','DIVIDE')
 )
+>>>>>>> 235a9d6046a3a1b67ed438d0093a1694e0649a09
 
 variables = {}
 def p_statement_assign(t):
+<<<<<<< HEAD
+    'statement : NAME ASSIGN expression'
+    names[t[1]] = t[3]
+    print("Result: ", names[t[1]])
+=======
     'statement : VAR ASSIGN expression'
     variables[t[1]] = t[3]
     print(t[3])
+>>>>>>> 235a9d6046a3a1b67ed438d0093a1694e0649a09
 
 def p_statement_expr(t):
     'statement : expression'
@@ -97,6 +118,10 @@ def p_expression_plus(p):
 def p_expression_minus(p):
     'expression : expression MINUS term'
     p[0] = p[1] - p[3]
+<<<<<<< HEAD
+    print("Result: ", p[0])
+=======
+>>>>>>> 235a9d6046a3a1b67ed438d0093a1694e0649a09
 
 def p_expression_term(p):
     'expression : term'
@@ -105,12 +130,20 @@ def p_expression_term(p):
 def p_term_times(p):
     'term : term TIMES factor'
     p[0] = p[1] * p[3]
+<<<<<<< HEAD
+    print("Result: ", p[0])
+=======
     print(p[0])
+>>>>>>> 235a9d6046a3a1b67ed438d0093a1694e0649a09
 
 def p_term_div(p):
     'term : term DIVIDE factor'
     p[0] = p[1] / p[3]
+<<<<<<< HEAD
+    print("Result: ", p[0])
+=======
     print(p[0])
+>>>>>>> 235a9d6046a3a1b67ed438d0093a1694e0649a09
 
 def p_term_factor(p):
     'term : factor'

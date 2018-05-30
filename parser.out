@@ -2,15 +2,35 @@ Created by PLY version 3.11 (http://www.dabeaz.com/ply)
 
 Unused terminals:
 
+<<<<<<< HEAD
     ELSE
     FALSE
     IF
     RESERVED
     TRUE
+=======
+    AND
+    COMMA
+    COND
+    EXPR
+    GREATER
+    ID
+    LBRACE
+    LESS
+    MOD
+    NOT
+    NUM_CONST
+    OPERATOR
+    OR
+    RBRACE
+    SEMICOLON
+    VAR
+>>>>>>> 6a634187899304d906e16f7c62d7587d6b463a85
 
 Grammar
 
 Rule 0     S' -> statement
+<<<<<<< HEAD
 Rule 1     statement -> VAR ASSIGN expression
 Rule 2     statement -> expression
 Rule 3     expression -> expression PLUS expression
@@ -41,10 +61,50 @@ RPAREN               : 10 11 12
 TIMES                : 6
 TRUE                 : 
 VAR                  : 1 11
+=======
+Rule 1     statement -> NAME ASSIGN expression
+Rule 2     statement -> expression
+Rule 3     expression -> expression PLUS expression
+Rule 4     expression -> expression MINUS expression
+Rule 5     expression -> expression TIMES expression
+Rule 6     expression -> expression DIVIDE expression
+Rule 7     term -> factor
+Rule 8     factor -> NUMBER
+Rule 9     factor -> LPAREN expression RPAREN
+
+Terminals, with rules where they appear
+
+AND                  : 
+ASSIGN               : 1
+COMMA                : 
+COND                 : 
+DIVIDE               : 6
+EXPR                 : 
+GREATER              : 
+ID                   : 
+LBRACE               : 
+LESS                 : 
+LPAREN               : 9
+MINUS                : 4
+MOD                  : 
+NAME                 : 1
+NOT                  : 
+NUMBER               : 8
+NUM_CONST            : 
+OPERATOR             : 
+OR                   : 
+PLUS                 : 3
+RBRACE               : 
+RPAREN               : 9
+SEMICOLON            : 
+TIMES                : 5
+VAR                  : 
+>>>>>>> 6a634187899304d906e16f7c62d7587d6b463a85
 error                : 
 
 Nonterminals, with rules where they appear
 
+<<<<<<< HEAD
 expression           : 1 2 3 3 4 10 12
 factor               : 6 7 8
 print_stmt           : 
@@ -317,4 +377,10 @@ state 19
     MINUS           reduce using rule 10 (factor -> LPAREN expression RPAREN .)
     $end            reduce using rule 10 (factor -> LPAREN expression RPAREN .)
     RPAREN          reduce using rule 10 (factor -> LPAREN expression RPAREN .)
+=======
+expression           : 1 2 3 3 4 4 5 5 6 6 9
+factor               : 7
+statement            : 0
+term                 : 
+>>>>>>> 6a634187899304d906e16f7c62d7587d6b463a85
 
