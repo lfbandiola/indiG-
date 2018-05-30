@@ -93,6 +93,8 @@ def t_newline(t):
 # Build the lexer
 lexer = lex.lex()
 
+# ---------------------------------------------end of lexer-------------------------------------------------------------
+
 precedence = (
     ('left','PLUS','MINUS'),
     ('left','TIMES','DIVIDE')
@@ -102,12 +104,12 @@ import ply.yacc as yacc
 
 # Get the token map from the lexer.  This is required.
 # from calclex import tokens
-
-names = {}
+names = { }
 
 def p_statement_assign(t):
     'statement : NAME ASSIGN expression'
     names[t[1]] = t[3]
+    print("Result: ", names[t[1]])
 
 def p_statement_expr(t):
     'statement : expression'
@@ -116,15 +118,11 @@ def p_statement_expr(t):
 def p_expression_plus(p):
     'expression : expression PLUS term'
     p[0] = p[1] + p[3]
-    print('add')
-    print(p[0])
-    print(p[1])
-    print(p[3])
 
 def p_expression_minus(p):
     'expression : expression MINUS term'
     p[0] = p[1] - p[3]
-    print('minus')
+    print("Result: ", p[0])
 
 def p_expression_term(p):
     'expression : term'
@@ -133,12 +131,12 @@ def p_expression_term(p):
 def p_term_times(p):
     'term : term TIMES factor'
     p[0] = p[1] * p[3]
-    print('times')
+    print("Result: ", p[0])
 
 def p_term_div(p):
     'term : term DIVIDE factor'
     p[0] = p[1] / p[3]
-    print('divide')
+    print("Result: ", p[0])
 
 def p_term_factor(p):
     'term : factor'
